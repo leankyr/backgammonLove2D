@@ -25,6 +25,9 @@ function Dice:render()
    		--dice = false
    		--client:send("dice", dice)
 	end
-		
+	
+	love.graphics.setColor(1, 1, 1, 1)
+	love.graphics.print( tostring(dice1), 75,150 , 0, 1.8, 1.8, 0, 0, 0, 0)
+	love.graphics.print( tostring(dice2), 85,150 , 0, 1.8, 1.8, 0, 0, 0, 0)
    
 end

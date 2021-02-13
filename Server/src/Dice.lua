@@ -28,8 +28,8 @@ function Dice:render()
 	love.graphics.setColor(1, 1, 1, 1)
 	love.graphics.print( tostring(self.dice1), 75,150 , 0, 1.8, 1.8, 0, 0, 0, 0)
 	love.graphics.print( tostring(self.dice2), 85,150 , 0, 1.8, 1.8, 0, 0, 0, 0)
-			
-
+	
+	server:sendToAll("render_dice",{self.dice1, self.dice2})
 	
 
    

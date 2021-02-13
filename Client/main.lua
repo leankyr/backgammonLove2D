@@ -1,12 +1,16 @@
 require 'src/Dependencies'
 
+
+
 --[[
     Called just once at the beginning of the game; used to set up
     game objects, variables, etc. and prepare the game world.
 ]]
 function love.load()
         -- Creating a new client on localhost:22122
-    client = sock.newClient("192.168.1.12", 22122)
+    client = sock.newClient("25.100.215.152", 22122)
+    --client = sock.newClient("192.168.1.12", 22122)
+
     client:setSerialization(bitser.dumps, bitser.loads)
     -- Creating a client to connect to some ip address
     --client = sock.newClient("198.51.100.0", 22122)
@@ -26,23 +30,45 @@ function love.load()
         print("The server replied: " .. msg)
 
     end)
-
+    pi = {}    
+    px = {}
+    py = {}   
+    pc = {}
     client:on("render", function(data)
+
+
+
+      
     color = data[1]
-    id = data[2]
-    x = data[3]
-    y = data[4]
-   -- print("The server replied: ",color, id, x, y)    
+    pi[data[2]] = data[2]
+    px[data[2]] = data[3]
+    py[data[2]] = data[4]
+
+
+    --print("The server replied: ",pi)    
 
     end)
     
+    client:on("render_dice", function(data)
+
+    dice1 = data[1]
+    dice2 = data[2]    
+
+    --print("The server replied: ",pi)    
+
+    end)
+
+
+
+--    for j=1,30 do
+  --      print(pi[j])
+ --     end
+
+
+
+
+
     client:connect()
-
-   
-
-
-
-
 
     
     --  You can send different types of data
@@ -53,13 +79,6 @@ function love.load()
    --     x = 465.3,
    --     y = 50,
    -- })
-    
-   
-
-
-
-
-
 
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
@@ -183,7 +202,7 @@ function love.keyreleased(key)
 end
 
 ----------------------------------------------
-
+--[[
 function love.mousepressed(x, y, key)
     love.mouse.keysPressed[key] = true
 end
@@ -191,6 +210,7 @@ end
 function love.mousereleased(x, y, key)
     love.mouse.keysReleased[key] = true 
 end
+--]]
 -------------------------------------------
 function love.keyboard.wasPressed(key)
     return love.keyboard.keysPressed[key]
@@ -221,7 +241,7 @@ function love.keyboard.wasReleased(key)
 end
 
 ----------------------------
-
+--[[
 function love.mouse.wasPressed(key)
     return love.mouse.keysPressed[key]
 end
@@ -229,7 +249,7 @@ end
 function love.mouse.wasReleased(key)
     return love.mouse.keysReleased[key]
 end
-
+--]]
 
 --[[
     Called each frame after update; is responsible simply for

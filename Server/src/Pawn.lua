@@ -1,30 +1,3 @@
-
-
-
-Pawn = Class{}
-
-
-function Pawn:init(x, y, world, color, id)
-	self.x = x
-	self.y = y
-	self.xr = 0
-	self.yr = 0
-	self.world = world
-	self.color = color	
-	self.dx = dx
-	self.dy = dy
-	self.id = id
-
-	
-
-
-
-
-
-end
-
-
-
 Pawn = Class{}
 
 
@@ -61,7 +34,7 @@ function Pawn:update(dt)
 		--print(self.y)
 	end
 	self:CheckXY()
-	
+	server:sendToAll("render",{self.color, self.id, self.x, self.y})
 
 end
 

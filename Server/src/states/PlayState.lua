@@ -110,7 +110,7 @@ function PlayState:render()
     self.pawnG15:render()  
     
 
-   self.Dice:render()
+   
 
 
     self.pawnO1:render()  
@@ -128,8 +128,8 @@ function PlayState:render()
     self.pawnO13:render() 
     self.pawnO14:render()
     self.pawnO15:render()
-
     
+    self.Dice:render() 
 
 
 end

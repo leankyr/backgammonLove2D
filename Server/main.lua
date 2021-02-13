@@ -6,8 +6,9 @@ require 'src/Dependencies'
 ]]
 function love.load()
     -- Creating a server on any IP, port 22122
-    server = sock.newServer("*", 22122)
-    --server:setBandWidthLimit(4096, 4096)
+    server = sock.newServer("25.100.215.152", 22122)
+    ip = server:getSocketAddress()
+    print (ip)
     server:setSerialization(bitser.dumps, bitser.loads)
 
     -- Called when someone connects to the server
@@ -37,10 +38,18 @@ function love.load()
 
     server:on("position", function(data, client)
     server:setSerialization(bitser.dumps, bitser.loads)
-    --    -- Send a message back to the connected client   
+    --    -- Send a message back to the connected client
+
         id = data[1]
         dx = data[2]
-        dy = data[3]     
+        dy = data[3]
+
+
+
+
+
+
+             
       -- print("id:", id)
       -- print("Position:")
       -- print("X is:", dx)
@@ -57,7 +66,11 @@ function love.load()
        --dice = false
     end)
 
-    
+    --ip = Server:getSocketAddress()
+
+
+
+
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 
@@ -179,7 +192,7 @@ function love.keyreleased(key)
 end
 
 ----------------------------------------------
-
+--[[
 function love.mousepressed(x, y, key)
     love.mouse.keysPressed[key] = true
 end
@@ -187,6 +200,7 @@ end
 function love.mousereleased(x, y, key)
     love.mouse.keysReleased[key] = true 
 end
+]]--
 -------------------------------------------
 function love.keyboard.wasPressed(key)
     return love.keyboard.keysPressed[key]
@@ -217,7 +231,7 @@ function love.keyboard.wasReleased(key)
 end
 
 ----------------------------
-
+--[[
 function love.mouse.wasPressed(key)
     return love.mouse.keysPressed[key]
 end
@@ -225,7 +239,7 @@ end
 function love.mouse.wasReleased(key)
     return love.mouse.keysReleased[key]
 end
-
+]]--
 
 --[[
     Called each frame after update; is responsible simply for
