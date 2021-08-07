@@ -4,8 +4,6 @@ Pawn = Class{}
 function Pawn:init(x, y, world, color, id)
 	self.x = x
 	self.y = y
-	self.xr = 0
-	self.yr = 0
 	self.world = world
 	self.color = color	
 	self.dx = 0
@@ -20,20 +18,36 @@ function Pawn:update(dt)
 		if dx == 1 then
 		--	self.dx = speed
 			self.x = self.x + dx
+			if self.x > 290 then
+				self.x = 290
+			end	
 		elseif dx == -1 then 
 		  -- 	self.dx = -speed
-			self.x = self.x + dx	   	
+			self.x = self.x + dx
+			if self.x < 10 then
+				self.x = 10
+			end
+
+
 		end
 		if dy == -1 then
 		--	self.dy = -speed
 			self.y = self.y + dy
+			if self.y < 10 then
+				self.y = 10
+			end
 		elseif dy == 1 then 
 		--   	self.dy = speed
-			self.y = self.y + dy	   	
+			self.y = self.y + dy
+			if self.y > 290 then
+				self.y = 290
+			end	   	
 		end
 		--print(self.y)
 	end
-	self:CheckXY()
+	--self:CheckXY()
+	--server:setSendMode("reliable")
+	server:setSendMode("unsequenced")
 	server:sendToAll("render",{self.color, self.id, self.x, self.y})
 
 end
@@ -64,17 +78,7 @@ function Pawn:render()
     	love.graphics.setColor(1, 1, 1, 1)
    		love.graphics.print(self.id, self.x, self.y, 0, 1.8 ,1.8 ,0, 0, 0, 0)
     end
-    
-    --self:WriteToFile()
-   -- print("Hey!!!")
-    --server:on("render", function(data, client)
-    	--server:setSerialization(bitser.dumps, bitser.loads)
-    --	print("Hey!!!")
-        -- Send a message back to the connected client
-        --local data = {self.color, self.id, self.x, self.y}
-        --server:sendToAll("render", data)
-
-   
+       
 end
 
 
@@ -139,29 +143,4 @@ function Pawn:CheckXY()
 				self.y = 17
 			end
 		end
-end
-
-function Pawn:WriteToFile()
-
-	file = io.open("C:/Users/leankyr/Desktop/moves.txt", "w")
-	io.output(file)
-	io.write(self.id)
-	io.write("\n")
-	io.write(self.x)
-	io.write("\n")
-	io.write(self.y)
-	io.write(" ")
-	io.write("\n")
-	io.close(file)
-end
-
-function Pawn:ReadFromFile()
-	file2 = io.open("C:/Users/leankyr/Desktop/moves.txt", "r")
-	io.input(file2)
-	if self.id == io.read() then
-		self.xr = io.read()
-		self.yr = io.read()
-		 
-	end
-	io.close(file2)
 end

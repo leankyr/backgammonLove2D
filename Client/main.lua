@@ -8,8 +8,10 @@ require 'src/Dependencies'
 ]]
 function love.load()
         -- Creating a new client on localhost:22122
-    client = sock.newClient("25.100.215.152", 22122)
-    --client = sock.newClient("192.168.1.12", 22122)
+    --client = sock.newClient("46.12.54.149", 27002)
+    --client = sock.newClient("172.19.224.1", 22122)
+    --client = sock.newClient("25.74.149.78", 22122)
+    client = sock.newClient("192.168.1.13", 27002)
 
     client:setSerialization(bitser.dumps, bitser.loads)
     -- Creating a client to connect to some ip address
@@ -37,15 +39,11 @@ function love.load()
     client:on("render", function(data)
 
 
-
-      
     color = data[1]
     pi[data[2]] = data[2]
     px[data[2]] = data[3]
     py[data[2]] = data[4]
-
-
-    --print("The server replied: ",pi)    
+    
 
     end)
     

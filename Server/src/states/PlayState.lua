@@ -93,6 +93,8 @@ end
 
 function PlayState:render()
     -- render pawn
+
+    
     self.pawnG1:render()  
     self.pawnG2:render()
     self.pawnG3:render()  

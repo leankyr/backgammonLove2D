@@ -21,6 +21,7 @@ function Dice:render()
 	if love.keyboard.isDown('tab') then
 		 
 		dice = true	
+		client:setSendMode("unsequenced")
 		client:send("dice", dice)
    		--dice = false
    		--client:send("dice", dice)
