@@ -65,23 +65,26 @@ function Pawn:render(x, y, c)
     boxBody = love.physics.newBody(self.world, self.x, self.y, 'dynamic')
     --print('Hey!!')
     -- shape that we will attach using a fixture to our body for collision detection
-   boxShape = love.physics.newRectangleShape(20, 20)
-
+   --boxShape = love.physics.newRectangleShape(20, 20)
+   circle = love.physics.newCircleShape( self.x, self.y, 12 )
     -- fixture that attaches a shape to our body
-    boxFixture = love.physics.newFixture(boxBody, boxShape)
+    --boxFixture = love.physics.newFixture(boxBody, boxShape)
+    boxFixture = love.physics.newFixture(boxBody, circle)
 
     if c == 'g' then
     	love.graphics.setColor(0, 1, 0, 1)
-    	love.graphics.polygon('fill', boxBody:getWorldPoints(boxShape:getPoints()))
+    	--love.graphics.polygon('fill', boxBody:getWorldPoints(boxShape:getPoints()))
+    	love.graphics.ellipse('fill', self.x, self.y, 12, 12, 100)
     	love.graphics.setColor(1, 1, 1, 1)
     	love.graphics.print(self.id, self.x, self.y, 0, 1.8,1.8 ,0, 0, 0, 0)
     elseif c == 'o' then
     	love.graphics.setColor(1, 0.647, 0, 1)
-    	love.graphics.polygon('fill', boxBody:getWorldPoints(boxShape:getPoints()))
+    	--love.graphics.polygon('fill', boxBody:getWorldPoints(boxShape:getPoints()))
+    	love.graphics.ellipse('fill', self.x, self.y, 12, 12, 100)
     	love.graphics.setColor(1, 1, 1, 1)
    		love.graphics.print(self.id, self.x, self.y, 0, 1.8 ,1.8 ,0, 0, 0, 0)
     end
-    
+
 
 
 
