@@ -8,10 +8,10 @@ require 'src/Dependencies'
 ]]
 function love.load()
         -- Creating a new client on localhost:22122
-    --client = sock.newClient("46.12.54.149", 27002)
+    client = sock.newClient("localhost", 27002)
     --client = sock.newClient("172.19.224.1", 22122)
     --client = sock.newClient("25.74.149.78", 22122)
-    client = sock.newClient("192.168.1.13", 27002)
+    --client = sock.newClient("192.168.1.13", 27002)
 
     client:setSerialization(bitser.dumps, bitser.loads)
     -- Creating a client to connect to some ip address
@@ -224,7 +224,6 @@ end
 
 
 -------------------------------------------
-
 
 function love.keyboard.wasReleased(key)
     return love.keyboard.keysReleased[key]

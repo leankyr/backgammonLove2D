@@ -45,7 +45,7 @@ function Pawn:update(dt)
 		end
 		--print(self.y)
 	end
-	--self:CheckXY()
+	self:CheckXY()
 	--server:setSendMode("reliable")
 	server:setSendMode("unsequenced")
 	server:sendToAll("render",{self.color, self.id, self.x, self.y})
@@ -53,12 +53,7 @@ function Pawn:update(dt)
 end
 
 function Pawn:render()
-
-	 
-    --self:ReadFromFile() 	
-	
-
-	    -- body that stores velocity and position and all fixtures
+	-- body that stores velocity and position and all fixtures
     boxBody = love.physics.newBody(self.world, self.x, self.y, 'dynamic')
     --print('Hey!!')
     -- shape that we will attach using a fixture to our body for collision detection

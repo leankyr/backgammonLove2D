@@ -6,8 +6,8 @@ require 'src/Dependencies'
 ]]
 function love.load()
     -- Creating a server on any IP, port 22122
-    --server = sock.newServer("25.74.149.78", 22122, 10, 3, 10000000,10000000)
-    server = sock.newServer("*", 27002, 10, 3, 10000000,10000000)
+    server = sock.newServer("localhost", 27002, 10, 3, 10000000,10000000)
+    --server = sock.newServer("*", 27002, 10, 3, 10000000,10000000)
     --server = sock.newServer("172.19.224.1", 22122, 10, 2)
     --server = sock.newServer("192.168.1.13", 22122)
     ip = server:getSocketAddress()
@@ -49,13 +49,6 @@ function love.load()
         id = data[1]
         dx = data[2]
         dy = data[3]
-
-
-
-
-
-
-             
       -- print("id:", id)
       -- print("Position:")
       -- print("X is:", dx)
