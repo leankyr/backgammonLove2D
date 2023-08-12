@@ -38,9 +38,8 @@ end
 function Pawn:render(x, y, c)
 	self.x = x
 	self.y = y
-
-	-- body that stores velocity and position and all fixtures
 	if(self. x ~= nil and self.y ~= nil) then
+		-- body that stores velocity and position and all fixtures
 		boxBody = love.physics.newBody(self.world, self.x, self.y, 'dynamic')
 		-- shape that we will attach using a fixture to our body for collision detection
 		--boxShape = love.physics.newRectangleShape(20, 20)
