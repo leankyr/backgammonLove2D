@@ -103,9 +103,6 @@ function love.load()
     -- load up the graphics we'll be using throughout our states
     gTextures = {
         ['background'] = love.graphics.newImage('graphics/board.png'),
-        ['oPawn'] = love.graphics.newImage('graphics/oPawn.png'),
-        ['gPawn'] = love.graphics.newImage('graphics/gPawn.png')
-
     }
     
  -- initialize our virtual resolution, which will be rendered within our

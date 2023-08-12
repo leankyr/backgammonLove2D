@@ -1,62 +1,82 @@
 require 'src/Dependencies'
 
+
+
 --[[
     Called just once at the beginning of the game; used to set up
     game objects, variables, etc. and prepare the game world.
 ]]
 function love.load()
-    -- Creating a server on any IP, port 22122
-    server = sock.newServer("localhost", 27002, 10, 3, 10000000,10000000)
-    --server = sock.newServer("*", 27002, 10, 3, 10000000,10000000)
-    --server = sock.newServer("172.19.224.1", 22122, 10, 2)
-    --server = sock.newServer("192.168.1.13", 22122)
-    ip = server:getSocketAddress()
-    print (ip)
-    server:setSerialization(bitser.dumps, bitser.loads)
-    --server:setBandwidthLimit(1024000, 4096000)
-    -- Called when someone connects to the server
-   server:on("connect", function(data, client)
+        -- Creating a new client on localhost:22122
+    client = sock.newClient("localhost", 27002)
+    --client = sock.newClient("172.19.224.1", 22122)
+    --client = sock.newClient("25.74.149.78", 22122)
+    --client = sock.newClient("192.168.1.13", 27002)
+
+    client:setSerialization(bitser.dumps, bitser.loads)
+    -- Creating a client to connect to some ip address
+    --client = sock.newClient("198.51.100.0", 22122)
+
+    -- Called when a connection is made to the server
+    client:on("connect", function(data)
+        print("Client connected to the server.")
+    end)
     
-        -- Send a message back to the connected client
-        local msg = "Hello from the server!"
-        client:send("hello", msg)
+    -- Called when the client disconnects from the server
+    client:on("disconnect", function(data)
+        print("Client disconnected from the server.")
     end)
 
-    server:on("greeting", function(data, client)
-    server:setSerialization(bitser.dumps, bitser.loads)
-        -- Send a message back to the connected client   
-        local msg = data     
-       print("The client sent: " .. msg)
+    -- Custom callback, called whenever you send the event from the server
+    client:on("hello", function(msg)
+        print("The server replied: " .. msg)
+
+    end)
+    pi = {}    
+    px = {}
+    py = {}   
+    pc = {}
+    client:on("render", function(data)
+
+
+    color = data[1]
+    pi[data[2]] = data[2]
+    px[data[2]] = data[3]
+    py[data[2]] = data[4]
+    
+
+    end)
+    
+    client:on("render_dice", function(data)
+
+    dice1 = data[1]
+    dice2 = data[2]    
+
+    --print("The server replied: ",pi)    
+
     end)
 
-    server:on("isShooting", function(data, client)
-    server:setSerialization(bitser.dumps, bitser.loads)
-        -- Send a message back to the connected client   
-       local msg = data     
-       print("The client sent that isShooting is: ", msg)
-    end)
-
-    server:on("position", function(data, client)
-    server:setSerialization(bitser.dumps, bitser.loads)
-    --    -- Send a message back to the connected client
-
-        id = data[1]
-        dx = data[2]
-        dy = data[3]
-     end)
 
 
-        server:on("dice", function(data, client)
-    server:setSerialization(bitser.dumps, bitser.loads)
-        -- Send a message back to the connected client   
-         dice = data     
-       print("The client sent that dice is: ", dice)
-    end)
-
-    --ip = Server:getSocketAddress()
+--    for j=1,30 do
+  --      print(pi[j])
+ --     end
 
 
 
+
+
+    client:connect()
+
+    
+    --  You can send different types of data
+    client:send("greeting", "Hello, my name is George!.")
+    --client:send("isShooting", true)
+    --client:send("bulletsLeft", 1)
+   -- client:send("position", {
+   --     x = 465.3,
+   --     y = 50,
+   -- })
 
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
@@ -80,6 +100,11 @@ function love.load()
     }
     love.graphics.setFont(gFonts['small'])
 
+    -- load up the graphics we'll be using throughout our states
+    gTextures = {
+        ['background'] = love.graphics.newImage('graphics/board.png'),
+    }
+    
  -- initialize our virtual resolution, which will be rendered within our
     -- actual window no matter its dimensionsi
     -- these constant values are kept in a seperate file
@@ -96,9 +121,9 @@ function love.load()
     -- our current game state can be any of the following:
     gStateMachine = StateMachine {
         ['start'] = function() return StartState() end,
-         ['play'] = function() return PlayState() end,
-         ['play2'] = function() return PlayState2() end,
-         ['play3'] = function() return PlayState3() end
+         ['move'] = function() return PlayState() end
+        -- ['play2'] = function() return PlayState2() end,
+        -- ['play3'] = function() return PlayState3() end
     }
     gStateMachine:change('start')
 
@@ -139,12 +164,13 @@ function love.update(dt)
     love.keyboard.keysReleased = {}
     love.mouse.keysPressed = {}
     
-   server:update()
-    
+    --client:send("greeting", "Hello, my name is George!")
+    --client:send("isShooting", true)
+    --client:send("position", {"o", 465.3, 50})
+    client:update()
 
-   -- if love.math.random() > 0.99 then
-   --     server:sendToAll("hello", "This is an update message")
-   -- end
+
+
 end
 
 --[[
@@ -179,7 +205,7 @@ end
 function love.mousereleased(x, y, key)
     love.mouse.keysReleased[key] = true 
 end
-]]--
+--]]
 -------------------------------------------
 function love.keyboard.wasPressed(key)
     return love.keyboard.keysPressed[key]
@@ -195,7 +221,6 @@ end
 
 
 -------------------------------------------
-
 
 function love.keyboard.wasReleased(key)
     return love.keyboard.keysReleased[key]
@@ -218,7 +243,7 @@ end
 function love.mouse.wasReleased(key)
     return love.mouse.keysReleased[key]
 end
-]]--
+--]]
 
 --[[
     Called each frame after update; is responsible simply for
@@ -229,9 +254,22 @@ function love.draw()
     -- push:apply('start') !! this one was deprecated !!
     push:start()
 
+    -- background should be drawn regardless of state, scaled to fit our
+    -- virtual resolution
+    local backgroundWidth = gTextures['background']:getWidth()
+    local backgroundHeight = gTextures['background']:getHeight()
+
+    love.graphics.draw(gTextures['background'], 
+        -- draw at coordinates 0, 0
+        0, 0, 
+        -- no rotation
+        0,
+        -- scale factors on X and Y axis so it fills the screen
+        VIRTUAL_WIDTH / (backgroundWidth - 1), VIRTUAL_HEIGHT / (backgroundHeight - 1))
+    
     -- use the state machine to defer rendering to the current state we're in
     gStateMachine:render()
-
+    
     -- display FPS for debugging; simply comment out to remove
     displayFPS()
     
