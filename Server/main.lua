@@ -14,16 +14,12 @@ function love.load()
     print (ip)
     server:setSerialization(bitser.dumps, bitser.loads)
     --server:setBandwidthLimit(1024000, 4096000)
-
-
-
     -- Called when someone connects to the server
    server:on("connect", function(data, client)
     
         -- Send a message back to the connected client
         local msg = "Hello from the server!"
         client:send("hello", msg)
-
     end)
 
     server:on("greeting", function(data, client)
@@ -31,7 +27,6 @@ function love.load()
         -- Send a message back to the connected client   
         local msg = data     
        print("The client sent: " .. msg)
-
     end)
 
     server:on("isShooting", function(data, client)
@@ -39,7 +34,6 @@ function love.load()
         -- Send a message back to the connected client   
        local msg = data     
        print("The client sent that isShooting is: ", msg)
-
     end)
 
     server:on("position", function(data, client)
@@ -49,11 +43,6 @@ function love.load()
         id = data[1]
         dx = data[2]
         dy = data[3]
-      -- print("id:", id)
-      -- print("Position:")
-      -- print("X is:", dx)
-      -- print("Y is:", dy)
-
      end)
 
 
@@ -62,7 +51,6 @@ function love.load()
         -- Send a message back to the connected client   
          dice = data     
        print("The client sent that dice is: ", dice)
-       --dice = false
     end)
 
     --ip = Server:getSocketAddress()
@@ -249,22 +237,9 @@ function love.draw()
     -- push:apply('start') !! this one was deprecated !!
     push:start()
 
-    -- background should be drawn regardless of state, scaled to fit our
-    -- virtual resolution
-    local backgroundWidth = gTextures['background']:getWidth()
-    local backgroundHeight = gTextures['background']:getHeight()
-
-    love.graphics.draw(gTextures['background'], 
-        -- draw at coordinates 0, 0
-        0, 0, 
-        -- no rotation
-        0,
-        -- scale factors on X and Y axis so it fills the screen
-        VIRTUAL_WIDTH / (backgroundWidth - 1), VIRTUAL_HEIGHT / (backgroundHeight - 1))
-    
     -- use the state machine to defer rendering to the current state we're in
     gStateMachine:render()
-    
+
     -- display FPS for debugging; simply comment out to remove
     displayFPS()
     
