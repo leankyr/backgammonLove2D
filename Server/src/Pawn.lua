@@ -36,9 +36,7 @@ function Pawn:update(dt)
 			end	   	
 		end
 	end
-	--server:setSendMode("reliable")
 	server:setSendMode("unsequenced")
 	server:sendToAll("render",{self.color, self.id, self.x, self.y})
-
 end
 

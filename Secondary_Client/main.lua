@@ -52,31 +52,11 @@ function love.load()
     dice1 = data[1]
     dice2 = data[2]    
 
-    --print("The server replied: ",pi)    
-
     end)
 
-
-
---    for j=1,30 do
-  --      print(pi[j])
- --     end
-
-
-
-
-
     client:connect()
-
-    
-    --  You can send different types of data
     client:send("greeting", "Hello, my name is George!.")
-    --client:send("isShooting", true)
-    --client:send("bulletsLeft", 1)
-   -- client:send("position", {
-   --     x = 465.3,
-   --     y = 50,
-   -- })
+
 
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------

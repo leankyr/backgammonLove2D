@@ -53,7 +53,12 @@ function love.load()
        print("The client sent that dice is: ", dice)
     end)
 
-    --ip = Server:getSocketAddress()
+    server:on("game", function(data, client)
+        server:setSerialization(bitser.dumps, bitser.loads)
+        -- Send a message back to the connected client
+        game = data[1]
+        print("The game is:", game)
+    end)
 
 
 
@@ -140,11 +145,6 @@ function love.update(dt)
     love.mouse.keysPressed = {}
     
    server:update()
-    
-
-   -- if love.math.random() > 0.99 then
-   --     server:sendToAll("hello", "This is an update message")
-   -- end
 end
 
 --[[
@@ -231,20 +231,8 @@ function love.draw()
 
     -- use the state machine to defer rendering to the current state we're in
     gStateMachine:render()
-
-    -- display FPS for debugging; simply comment out to remove
-    displayFPS()
     
     push:finish()
     -- push:apply('end')
 end
 
---[[
-    Renders the current FPS.
-]]
-function displayFPS()
-    -- simple FPS display across all states
-    love.graphics.setFont(gFonts['small'])
-    love.graphics.setColor(0, 255, 0, 255)
-    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 5, 5)
-end

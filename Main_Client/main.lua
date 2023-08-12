@@ -16,7 +16,7 @@ function love.load()
     client:setSerialization(bitser.dumps, bitser.loads)
     -- Creating a client to connect to some ip address
     --client = sock.newClient("198.51.100.0", 22122)
-
+    client:connect()
     -- Called when a connection is made to the server
     client:on("connect", function(data)
         print("Client connected to the server.")
@@ -56,27 +56,6 @@ function love.load()
 
     end)
 
-
-
---    for j=1,30 do
-  --      print(pi[j])
- --     end
-
-
-
-
-
-    client:connect()
-
-    
-    --  You can send different types of data
-    client:send("greeting", "Hello, my name is George!.")
-    --client:send("isShooting", true)
-    --client:send("bulletsLeft", 1)
-   -- client:send("position", {
-   --     x = 465.3,
-   --     y = 50,
-   -- })
 
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
@@ -121,9 +100,7 @@ function love.load()
     -- our current game state can be any of the following:
     gStateMachine = StateMachine {
         ['start'] = function() return StartState() end,
-         ['move'] = function() return PlayState() end
-        -- ['play2'] = function() return PlayState2() end,
-        -- ['play3'] = function() return PlayState3() end
+         ['play'] = function() return PlayState() end
     }
     gStateMachine:change('start')
 

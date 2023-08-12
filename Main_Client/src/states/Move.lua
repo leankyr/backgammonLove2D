@@ -1,7 +1,7 @@
 PlayState = Class{__includes = BaseState}
 
 function PlayState:init()
-	
+  print('I am in Playstate!!')
   self.world = love.physics.newWorld(0, 0)
   self.pawnG1 = Pawn('p')  
   self.pawnG2 = Pawn('q')

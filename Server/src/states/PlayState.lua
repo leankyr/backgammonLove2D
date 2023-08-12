@@ -1,7 +1,7 @@
 PlayState = Class{__includes = BaseState}
 
 function PlayState:init()
-    self.world = love.physics.newWorld(0, 0)        
+    self.world = love.physics.newWorld(0, 0)
     self.pawnG1 = Pawn(25, 278, self.world, 'g','p')
     self.pawnG2 = Pawn(25, 254, self.world, 'g','q')
 
@@ -42,11 +42,6 @@ function PlayState:init()
     self.pawnO8 = Pawn(192, 278, self.world, 'o','h')
     self.pawnO9 = Pawn(192, 254, self.world, 'o','i')
     self.pawnO10 = Pawn(192, 230, self.world, 'o','j')
-
-    
-
-      
-
 end
 
 function PlayState:update(dt)
