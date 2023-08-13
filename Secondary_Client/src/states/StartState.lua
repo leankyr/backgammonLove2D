@@ -14,7 +14,7 @@ function StartState:update(dt)
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
         if highlighted == 1 then
-            gStateMachine:change('move')
+            gStateMachine:change('play')
         end
     end
 end
@@ -32,7 +32,7 @@ function StartState:render()
     if highlighted == 1 then
         love.graphics.setColor(103/255, 255/255, 255/255, 255/255)
     end
-    love.graphics.printf("move", 0, VIRTUAL_HEIGHT / 2 + 60,
+    love.graphics.printf("play", 0, VIRTUAL_HEIGHT / 2 + 60,
         VIRTUAL_WIDTH, 'center')
 
     -- reset the color
