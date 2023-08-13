@@ -13,23 +13,23 @@ end
 
 function Pawn:update(dt)
 	if self.id == id then
-		if dx == 1 then
+		if dx > 0 then
 			self.x = self.x + dx
 			if self.x > 290 then
 				self.x = 290
 			end	
-		elseif dx == -1 then 
+		elseif dx < 0 then
 			self.x = self.x + dx
 			if self.x < 10 then
 				self.x = 10
 			end
 		end
-		if dy == -1 then
+		if dy < 0 then
 			self.y = self.y + dy
 			if self.y < 10 then
 				self.y = 10
 			end
-		elseif dy == 1 then 
+		elseif dy > 0 then
 			self.y = self.y + dy
 			if self.y > 290 then
 				self.y = 290

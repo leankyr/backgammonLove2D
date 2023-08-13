@@ -8,7 +8,7 @@ require 'src/Dependencies'
 ]]
 function love.load()
         -- Creating a new client on localhost:22122
-    client = sock.newClient("localhost", 27002)
+    client = sock.newClient("34.154.152.91", 27002)
     --client = sock.newClient("172.19.224.1", 22122)
     --client = sock.newClient("25.74.149.78", 22122)
     --client = sock.newClient("192.168.1.13", 27002)
@@ -111,16 +111,6 @@ function love.load()
     -- test for input from within other functions
     love.keyboard.keysPressed = {}
 end
-
---[[
-    Called whenever we change the dimensions of our window, as by dragging
-    out its bottom corner, for example. In this case, we only need to worry
-    about calling out to `push` to handle the resizing. Takes in a `w` and
-    `h` variable representing width and height, respectively.
-]]
---function love.resize(w, h)
---    push:resize(w, h)
---end
 
 --[[
     Called every frame, passing in `dt` since the last frame. `dt`

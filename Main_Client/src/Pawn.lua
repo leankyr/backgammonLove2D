@@ -12,7 +12,7 @@ function Pawn:init(id, x, y ,c)
 end
 
 function Pawn:update(dt)
-	local speed = 1
+	local speed = 0.1
 	if love.keyboard.isDown(self.id) then
 		if love.keyboard.isDown('right') then
 			self.dx = speed
