@@ -8,7 +8,7 @@ require 'src/Dependencies'
 ]]
 function love.load()
         -- Creating a new client on localhost:22122
-    client = sock.newClient("localhost", 27002)
+    client = sock.newClient("34.154.152.91", 27002)
     --client = sock.newClient("172.19.224.1", 22122)
     --client = sock.newClient("25.74.149.78", 22122)
     --client = sock.newClient("192.168.1.13", 27002)
