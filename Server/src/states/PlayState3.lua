@@ -42,6 +42,8 @@ function PlayState3:init()
     self.pawnO8 = Pawn(27, 65, self.world, 'o','h')
     self.pawnO9 = Pawn(27, 89, self.world, 'o','i')
     self.pawnO10 = Pawn(27, 113, self.world, 'o','j')
+
+
 end
 
 function PlayState3:update(dt)
@@ -78,4 +80,11 @@ function PlayState3:update(dt)
     self.pawnO13:update(dt)
     self.pawnO14:update(dt)
     self.pawnO15:update(dt)
+
+    if escape then
+        game = ''
+        escape = false
+        gStateMachine:change('start')
+    end
+
 end

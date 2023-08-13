@@ -78,5 +78,11 @@ function PlayState2:update(dt)
     self.pawnO13:update(dt)
     self.pawnO14:update(dt)
     self.pawnO15:update(dt)
+
+    if escape then
+        game = ''
+        escape = false
+        gStateMachine:change('start')
+    end
 end
 

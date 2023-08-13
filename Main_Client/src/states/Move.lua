@@ -1,7 +1,6 @@
 PlayState = Class{__includes = BaseState}
 
 function PlayState:init()
-  print('I am in Playstate!!')
   self.world = love.physics.newWorld(0, 0)
   self.pawnG1 = Pawn('p')  
   self.pawnG2 = Pawn('q')
@@ -21,7 +20,6 @@ function PlayState:init()
   self.pawnG13 = Pawn('2')
   self.pawnG14 = Pawn('3')
   self.pawnG15 = Pawn('4')
- 
 
   self.Dice = Dice()
 
@@ -43,10 +41,6 @@ function PlayState:init()
   self.pawnO13 = Pawn('m')
   self.pawnO14 = Pawn('n')
   self.pawnO15 = Pawn('o')
-
-
-      
-
 end
 
 function PlayState:update(dt)
@@ -85,6 +79,9 @@ function PlayState:update(dt)
    self.pawnO14:update(dt)
    self.pawnO15:update(dt)
 
+   if love.keyboard.wasPressed('escape') then
+      gStateMachine:change('escape')
+   end
 
 end
 
@@ -106,32 +103,21 @@ function PlayState:render()
    self.pawnG14:render(px['3'], py['3'], 'g')
    self.pawnG15:render(px['4'], py['4'], 'g')
 
- self.Dice:render()
+    self.Dice:render()
 
-self.pawnO1:render(px['a'], py['a'], 'o')
-self.pawnO2:render(px['b'], py['b'], 'o')
-self.pawnO3:render(px['c'], py['c'], 'o')
-self.pawnO4:render(px['d'], py['d'], 'o')
-self.pawnO5:render(px['e'], py['e'], 'o')
-self.pawnO6:render(px['f'], py['f'], 'o')
-self.pawnO7:render(px['g'], py['g'], 'o')
-self.pawnO8:render(px['h'], py['h'], 'o')
-self.pawnO9:render(px['i'], py['i'], 'o')
-self.pawnO10:render(px['j'], py['j'], 'o')
-self.pawnO11:render(px['k'], py['k'], 'o')
-self.pawnO12:render(px['l'], py['l'], 'o')
-self.pawnO13:render(px['m'], py['m'], 'o')
-self.pawnO14:render(px['n'], py['n'], 'o')
-self.pawnO15:render(px['o'], py['o'], 'o')
-
-
-
-
-
-
-
-
-    
-
-
+    self.pawnO1:render(px['a'], py['a'], 'o')
+    self.pawnO2:render(px['b'], py['b'], 'o')
+    self.pawnO3:render(px['c'], py['c'], 'o')
+    self.pawnO4:render(px['d'], py['d'], 'o')
+    self.pawnO5:render(px['e'], py['e'], 'o')
+    self.pawnO6:render(px['f'], py['f'], 'o')
+    self.pawnO7:render(px['g'], py['g'], 'o')
+    self.pawnO8:render(px['h'], py['h'], 'o')
+    self.pawnO9:render(px['i'], py['i'], 'o')
+    self.pawnO10:render(px['j'], py['j'], 'o')
+    self.pawnO11:render(px['k'], py['k'], 'o')
+    self.pawnO12:render(px['l'], py['l'], 'o')
+    self.pawnO13:render(px['m'], py['m'], 'o')
+    self.pawnO14:render(px['n'], py['n'], 'o')
+    self.pawnO15:render(px['o'], py['o'], 'o')
 end

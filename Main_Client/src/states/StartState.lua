@@ -3,16 +3,6 @@ StartState = Class{__includes = BaseState}
 -- whether we're highlighting "Start" or "High Scores"
 local highlighted = 1
 
-function sleep(w)
-    time=os.time()
-    wait=w
-    newtime=time+wait
-    while (time<newtime)
-    do
-        time=os.time()
-    end
-end
-
 function StartState:update(dt)
     -- toggle highlighted option if we press an arrow key up or down
     if love.keyboard.wasPressed('up') then
@@ -35,10 +25,6 @@ function StartState:update(dt)
         end
     end
 
-
-
-
-
     -- we no longer have this globally, so include here
     if love.keyboard.wasPressed('escape') then
         love.event.quit()
@@ -47,7 +33,6 @@ function StartState:update(dt)
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
         client:setSendMode("reliable")
-        game = ''
         if highlighted == 1 then
             client:send("game", {"portes"})
             gStateMachine:change('play')
@@ -93,7 +78,6 @@ function StartState:render()
     end
     love.graphics.printf("Feuga", 0, VIRTUAL_HEIGHT / 2 + 100,
             VIRTUAL_WIDTH, 'center')
-
 
     -- reset the color
     love.graphics.setColor(255/255, 255/255, 255/255, 255/255)
