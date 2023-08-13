@@ -113,16 +113,6 @@ function love.load()
 end
 
 --[[
-    Called whenever we change the dimensions of our window, as by dragging
-    out its bottom corner, for example. In this case, we only need to worry
-    about calling out to `push` to handle the resizing. Takes in a `w` and
-    `h` variable representing width and height, respectively.
-]]
---function love.resize(w, h)
---    push:resize(w, h)
---end
-
---[[
     Called every frame, passing in `dt` since the last frame. `dt`
     is short for `deltaTime` and is measured in seconds. Multiplying
     this by any changes we wish to make in our game will allow our
