@@ -13,7 +13,6 @@ function love.load()
     ip = server:getSocketAddress()
     print (ip)
     server:setSerialization(bitser.dumps, bitser.loads)
-    --server:setBandwidthLimit(1024000, 4096000)
     -- Called when someone connects to the server
    server:on("connect", function(data, client)
     
@@ -29,12 +28,6 @@ function love.load()
        print("The client sent: " .. msg)
     end)
 
-    server:on("isShooting", function(data, client)
-    server:setSerialization(bitser.dumps, bitser.loads)
-        -- Send a message back to the connected client   
-       local msg = data     
-       print("The client sent that isShooting is: ", msg)
-    end)
 
     server:on("position", function(data, client)
     server:setSerialization(bitser.dumps, bitser.loads)
@@ -45,8 +38,11 @@ function love.load()
         dy = data[3]
      end)
 
+    server:on("escape", function(data, client)
+        escape = data
+    end)
 
-        server:on("dice", function(data, client)
+    server:on("dice", function(data, client)
     server:setSerialization(bitser.dumps, bitser.loads)
         -- Send a message back to the connected client   
          dice = data     

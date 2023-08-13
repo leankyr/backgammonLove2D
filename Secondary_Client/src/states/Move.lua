@@ -85,7 +85,9 @@ function PlayState:update(dt)
    self.pawnO14:update(dt)
    self.pawnO15:update(dt)
 
-
+    if love.keyboard.wasPressed('escape') then
+        gStateMachine:change('escape')
+    end
 end
 
 function PlayState:render()

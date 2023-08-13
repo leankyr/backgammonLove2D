@@ -101,9 +101,8 @@ function love.load()
     -- our current game state can be any of the following:
     gStateMachine = StateMachine {
         ['start'] = function() return StartState() end,
-         ['play'] = function() return PlayState() end
-        -- ['play2'] = function() return PlayState2() end,
-        -- ['play3'] = function() return PlayState3() end
+         ['play'] = function() return PlayState() end,
+        ['escape'] = function() return EscapeState() end
     }
     gStateMachine:change('start')
 
