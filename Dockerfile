@@ -21,8 +21,6 @@ RUN apt update \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY .asoundrc /root/.asoundrc
-
 COPY Server ./
 
 EXPOSE 27002
