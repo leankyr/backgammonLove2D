@@ -29,7 +29,7 @@ function Pawn:update(dt)
 		else
 			self.dy = 0 	
 		end
-		client:setSendMode("unsequenced")
+		client:setSendMode("reliable")
 		client:send("position", {self.id, self.dx, self.dy})
 	end
 	client:update()
