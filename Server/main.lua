@@ -6,8 +6,7 @@ require 'src/Dependencies'
 ]]
 function love.load()
     -- Creating a server on any IP, port 22122
-    server = sock.newServer("*", 27002, 10, 3, 10000000,10000000)
-
+    server = sock.newServer("*", 27002, 2, 2, 1000000000, 1000000000)
     ip = server:getSocketAddress()
     print (ip)
     server:setSerialization(bitser.dumps, bitser.loads)
@@ -32,8 +31,8 @@ function love.load()
     --    -- Send a message back to the connected client
 
         id = data[1]
-        dx = data[2]
-        dy = data[3]
+        dx = data[2] --new x
+        dy = data[3] --new y
      end)
 
     server:on("escape", function(data, client)
