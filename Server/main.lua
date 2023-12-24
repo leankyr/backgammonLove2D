@@ -6,7 +6,7 @@ require 'src/Dependencies'
 ]]
 function love.load()
     -- Creating a server on any IP, port 22122
-    server = sock.newServer("*", 27002, 2, 10, 1000000, 1000000)
+    server = sock.newServer("*", 27002, 2, 10, 100000000, 100000000)
     ip = server:getSocketAddress()
     print (ip)
     server:setSerialization(bitser.dumps, bitser.loads)
