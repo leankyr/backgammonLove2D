@@ -31,8 +31,8 @@ function love.load()
     --    -- Send a message back to the connected client
 
         id = data[1]
-        dx = data[2] --new x
-        dy = data[3] --new y
+        x = data[2] --new x
+        y = data[3] --new y
      end)
 
     server:on("escape", function(data, client)

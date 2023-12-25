@@ -11,26 +11,15 @@ function Pawn:init(id, x, y ,c)
 	self.world = love.physics.newWorld(0, 0)
 end
 
-function Pawn:update(dt)
-	local speed = 0.1
+function Pawn:update()
 	if love.keyboard.isDown(self.id) then
-		if love.keyboard.isDown('right') then
-			self.dx = speed
-		elseif love.keyboard.isDown('left') then
-		   	self.dx = -speed
-		else
-		 	self.dx = 0
-		 	 	
+		if love.mouse.isDown(1) then
+			local x, y = love.mouse.getPosition()
+			self.x = x * (3/7)
+			self.y = y * (3/7)
 		end
-		if love.keyboard.isDown('up') then
-			self.dy = -speed
-		elseif love.keyboard.isDown('down') then
-		   	self.dy = speed
-		else
-			self.dy = 0 	
-		end
-		client:setSendMode("unsequenced")
-		client:send("position", {self.id, self.dx, self.dy})
+		client:setSendMode("reliable")
+		client:send("position", {self.id, self.x, self.y})
 	end
 	client:update()
 end
@@ -39,24 +28,17 @@ function Pawn:render(x, y, c)
 	self.x = x
 	self.y = y
 	if(self. x ~= nil and self.y ~= nil) then
-		-- body that stores velocity and position and all fixtures
 		boxBody = love.physics.newBody(self.world, self.x, self.y, 'dynamic')
-		-- shape that we will attach using a fixture to our body for collision detection
-		--boxShape = love.physics.newRectangleShape(20, 20)
 		circle = love.physics.newCircleShape( self.x, self.y, 12 )
-		-- fixture that attaches a shape to our body
-		--boxFixture = love.physics.newFixture(boxBody, boxShape)
 		boxFixture = love.physics.newFixture(boxBody, circle)
 
 		if c == 'g' then
 			love.graphics.setColor(0, 1, 0, 1)
-			--love.graphics.polygon('fill', boxBody:getWorldPoints(boxShape:getPoints()))
 			love.graphics.ellipse('fill', self.x, self.y, 12, 12, 100)
 			love.graphics.setColor(1, 1, 1, 1)
 			love.graphics.print(self.id, self.x, self.y, 0, 1.8,1.8 ,0, 0, 0, 0)
 		elseif c == 'o' then
 			love.graphics.setColor(1, 0.647, 0, 1)
-			--love.graphics.polygon('fill', boxBody:getWorldPoints(boxShape:getPoints()))
 			love.graphics.ellipse('fill', self.x, self.y, 12, 12, 100)
 			love.graphics.setColor(1, 1, 1, 1)
 			love.graphics.print(self.id, self.x, self.y, 0, 1.8 ,1.8 ,0, 0, 0, 0)
