@@ -11,29 +11,11 @@ function Pawn:init(x, y, world, color, id)
 	self.id = id
 end
 
-function Pawn:update(dt)
-	if self.id == id then
-		if dx > 0 then
-			self.x = self.x + dx
-			if self.x > 290 then
-				self.x = 290
-			end	
-		elseif dx < 0 then
-			self.x = self.x + dx
-			if self.x < 10 then
-				self.x = 10
-			end
-		end
-		if dy < 0 then
-			self.y = self.y + dy
-			if self.y < 10 then
-				self.y = 10
-			end
-		elseif dy > 0 then
-			self.y = self.y + dy
-			if self.y > 290 then
-				self.y = 290
-			end	   	
+function Pawn:update()
+	if (self.id == id) then
+		if (self. x ~= x or self.y ~= y) then
+			self.x = x
+			self.y = y
 		end
 	end
 	server:setSendMode("reliable")

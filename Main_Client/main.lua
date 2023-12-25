@@ -6,8 +6,8 @@ require 'src/Dependencies'
 ]]
 function love.load()
         -- Creating a new client on localhost:22122
-    --client = sock.newClient("localhost", 27002)
-    client = sock.newClient("35.246.222.131", 27002)
+    client = sock.newClient("localhost", 27002)
+    --client = sock.newClient("35.246.222.131", 27002)
     client:setSerialization(bitser.dumps, bitser.loads)
 
     client:connect()
