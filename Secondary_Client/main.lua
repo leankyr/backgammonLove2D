@@ -6,8 +6,7 @@ require 'src/Dependencies'
 ]]
 function love.load()
     -- Creating a new client on localhost:22122
-    --client = sock.newClient("35.246.222.131", 27002)
-    client = sock.newClient("localhost", 27002)
+    client = sock.newClient("35.246.222.131", 27002)
     client:setSerialization(bitser.dumps, bitser.loads)
 
     -- Called when a connection is made to the server
@@ -119,20 +118,11 @@ end
 function love.update(dt)
     -- this time, we pass in dt to the state object we're currently using
     gStateMachine:update(dt)
-    --world:update(dt)
-
     -- reset keys pressed
     love.keyboard.keysPressed = {}
     love.keyboard.keysReleased = {}
     love.mouse.keysPressed = {}
-    
-    --client:send("greeting", "Hello, my name is George!")
-    --client:send("isShooting", true)
-    --client:send("position", {"o", 465.3, 50})
     client:update()
-
-
-
 end
 
 --[[

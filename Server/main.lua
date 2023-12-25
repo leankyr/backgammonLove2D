@@ -6,7 +6,7 @@ require 'src/Dependencies'
 ]]
 function love.load()
     -- Creating a server on any IP, port 22122
-    server = sock.newServer("*", 27002, 2, 10, 100000000, 100000000)
+    server = sock.newServer("*", 27002, 2, 10, 1000000, 1000000)
     ip = server:getSocketAddress()
     print (ip)
     server:setSerialization(bitser.dumps, bitser.loads)
@@ -63,7 +63,7 @@ function love.load()
     --
     -- our current game state can be any of the following:
     gStateMachine = StateMachine {
-        ['start'] = function() return StartState() end,
+         ['start'] = function() return StartState() end,
          ['play'] = function() return PlayState() end,
          ['play2'] = function() return PlayState2() end,
          ['play3'] = function() return PlayState3() end
@@ -75,7 +75,7 @@ end
 function love.update(dt)
     -- this time, we pass in dt to the state object we're currently using
     gStateMachine:update(dt)
-   server:update()
+    server:update()
 end
 
 

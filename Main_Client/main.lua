@@ -6,8 +6,7 @@ require 'src/Dependencies'
 ]]
 function love.load()
         -- Creating a new client on localhost:22122
-    client = sock.newClient("localhost", 27002)
-    --client = sock.newClient("35.246.222.131", 27002)
+    client = sock.newClient("35.246.222.131", 27002)
     client:setSerialization(bitser.dumps, bitser.loads)
 
     client:connect()
@@ -129,20 +128,11 @@ end
 function love.update(dt)
     -- this time, we pass in dt to the state object we're currently using
     gStateMachine:update(dt)
-    --world:update(dt)
-
     -- reset keys pressed
     love.keyboard.keysPressed = {}
     love.keyboard.keysReleased = {}
     love.mouse.keysPressed = {}
-    
-    --client:send("greeting", "Hello, my name is George!")
-    --client:send("isShooting", true)
-    --client:send("position", {"o", 465.3, 50})
     client:update()
-
-
-
 end
 
 --[[
@@ -169,15 +159,6 @@ function love.keyreleased(key)
 end
 
 ----------------------------------------------
---[[
-function love.mousepressed(x, y, key)
-    love.mouse.keysPressed[key] = true
-end
-
-function love.mousereleased(x, y, key)
-    love.mouse.keysReleased[key] = true 
-end
---]]
 -------------------------------------------
 function love.keyboard.wasPressed(key)
     return love.keyboard.keysPressed[key]
@@ -207,16 +188,6 @@ function love.keyboard.wasReleased(key)
 end
 
 ----------------------------
---[[
-function love.mouse.wasPressed(key)
-    return love.mouse.keysPressed[key]
-end
-
-function love.mouse.wasReleased(key)
-    return love.mouse.keysReleased[key]
-end
---]]
-
 --[[
     Called each frame after update; is responsible simply for
     drawing all of our game objects and more to the screen.
