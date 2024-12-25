@@ -5,8 +5,8 @@ require 'src/Dependencies'
     game objects, variables, etc. and prepare the game world.
 ]]
 function love.load()
-        -- Creating a new client on localhost:22122
-    client = sock.newClient("35.246.222.131", 27002)
+        -- Creating a new client on localhost:27002
+    client = sock.newClient("127.0.0.1", 27002)
     client:setSerialization(bitser.dumps, bitser.loads)
 
     client:connect()
